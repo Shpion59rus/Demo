@@ -1,0 +1,40 @@
+-==br-srv==- 
+apt-get install task-samba-dc -y
+rm -f /etc/samba/smb.conf 
+rm -rf /var/lib/samba/ 
+rm -rf /var/cache/samba/ 
+mkdir -p /var/lib/samba/sysvol
+
+samba-tool domain provision 
+cp /var/lib/samba/private/krb5.conf /etc/krb5.conf
+
+vim /etc/net/ifaces/ens18/resolv.conf
+
+search au-team.irpo 
+nameserver 127.0.0.1
+
+systemctl restart network
+systemctl enable --now samba
+samba-tool group add hq
+
+for i in {1..5}; do
+samba-tool user add hquser$i P@ssw0rd; 
+samba-tool user setexpiry hquser$i --noexpiry; 
+samba-tool group addmembers "hq" hquser$i; 
+done
+
+-==hq-rtr==-
+
+vim /etc/dhcp/dhcpd.conf
+
+option domain-name-servers 192.168.3.2;
+
+systemctl restart dhcpd
+
+-==hq-cli==-
+
+systemctl restart network
+
+vim /etc/sudoers
+
+%hq ALL=(root) 
