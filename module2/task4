@@ -1,0 +1,20 @@
+-==ISP==-
+apt-get install chrony -y 
+vim /etc/chrony.conf
+
+--------------------------------------------------------
+#pool pool.ntp.org iburst
+local stratum 5  
+server ntp0.ntp-servers.net iburst prefer minstratum 4 
+allow 0.0.0.0/0
+--------------------------------------------------------
+systemctl restart chronyd
+
+-==HQ-RTR BR-RTR==-
+vim /etc/chrony.conf
+
+------------------------
+server 172.16.1.1 iburst
+------------------------
+
+systemctl restart chronyd
