@@ -35,6 +35,9 @@ systemctl restart dhcpd
 
 systemctl restart network
 
+control sudo public
+
 vim /etc/sudoers
 
-%hq ALL=(root) 
+%hq ALL=(root) /usr/bin/id, /bin/grep, /bin/cat
+
