@@ -8,12 +8,12 @@ cp /mnt/web/index.php /var/www/html/
 cp /mnt/web/logo.png /var/www/html/
 
 vim /var/www/html/index.php
-
+--------------------------------------
 $servername = "localhost"; 
 $username = "webc"; 
 $password = "P@ssw0rd"; 
 $dbname = "webdb";
-
+--------------------------------------
 systemctl enable --now mariadb
 
 mariadb -u root
