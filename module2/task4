@@ -4,8 +4,8 @@ vim /etc/chrony.conf
 
 --------------------------------------------------------
 #pool pool.ntp.org iburst
-local stratum 5  
-server ntp0.ntp-servers.net iburst prefer minstratum 4 
+local stratum 8
+server ntp0.ntp-servers.net iburst prefer minstratum 7
 allow 0.0.0.0/0
 --------------------------------------------------------
 systemctl restart chronyd
